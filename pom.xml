@@ -24,33 +24,77 @@
 	</properties>
 	
 	<profiles>
-		<profile><id>undertow</id>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-undertow</artifactId>
-			</dependency>
-		</dependencies>
-		<dependencyManagement>
-		<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-			<version>2.1.4.RELEASE</version>
-			<exclusions>
-		 		<exclusion>
-		 			<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-reactor-netty</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		
-		</dependencies>
-		
-		</dependencyManagement>
+		<profile>
+			<id>undertow</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-undertow</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-webflux</artifactId>
+					<exclusions>
+				 		<exclusion>
+				 			<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-starter-reactor-netty</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
 		</profile>
-	
+		<profile>
+			<id>jetty</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-jetty</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-webflux</artifactId>
+					<exclusions>
+				 		<exclusion>
+				 			<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-starter-reactor-netty</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+				
+	   <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-alpn-conscrypt-server 
+  <version>9.4.15.v20190215</version>
+        
+        -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-alpn-conscrypt-server</artifactId>
+          </dependency>
+
+                <dependency>
+		            <groupId>org.eclipse.jetty.http2</groupId>
+		            <artifactId>http2-server</artifactId>
+		        </dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>tomcat</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-webflux</artifactId>
+					<exclusions>
+				 		<exclusion>
+				 			<groupId>org.springframework.boot</groupId>
+							<artifactId>spring-boot-starter-reactor-netty</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 
 	<dependencies>
@@ -58,10 +102,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		<!-- 
  		<dependency>
  			<groupId>org.springframework</groupId>
  			<artifactId>spring-webflux</artifactId>
  		</dependency>
+ 		 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -85,8 +131,6 @@
              <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-		
-		
 	</dependencies>
 
 	<build>
@@ -97,7 +141,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
+  <!-- 
 	<repositories>
 		<repository>
 			<id>spring-snapshots</id>
@@ -135,17 +179,5 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
- <!-- 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>io.projectreactor.netty</groupId>
-				<artifactId>reactor-netty</artifactId>
-				<version>0.8.6.RELEASE</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 	 -->
-
 </project>
